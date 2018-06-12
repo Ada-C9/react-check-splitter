@@ -1,0 +1,8 @@
+.split-info {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.split-info li {
+  margin: .5em 0;
+}

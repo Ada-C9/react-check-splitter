@@ -30,13 +30,20 @@ class CheckSplitterContainer extends React.Component {
   }
 
   calculateSplit() {
-    // TODO: bill math
-    return {
-      taxAmount: 0,
-      tipAmount: 0,
-      totalPrice: 0,
-      pricePerHead: 0,
+    const numbers = {
+      subtotal: parseFloat(this.state.subtotal),
+      tax: parseFloat(this.state.tax) / 100,
+      tip: parseFloat(this.state.tip) / 100,
+      split: parseInt(this.state.split),
     }
+    const split = {
+      taxAmount: numbers.subtotal * numbers.tax,
+      tipAmount: numbers.subtotal * numbers.tip,
+    }
+    split.totalPrice = numbers.subtotal + split.taxAmount + split.tipAmount;
+    split.pricePerHead = split.totalPrice / numbers.split;
+
+    return split;
   }
 
   render() {
@@ -49,7 +56,7 @@ class CheckSplitterContainer extends React.Component {
           split={this.state.split}
           updateCheckCallback={this.updateCheck}
           />
-        <SplitInfo />
+        <SplitInfo {...this.calculateSplit()}/>
       </div>
     );
   }
