@@ -3,6 +3,10 @@ import PropTypes from 'prop-types';
 
 import './SplitInfo.css';
 
+// This "curly braces in the argument list" syntax is called
+// object destructuring. It will take all the key/value pairs
+// and store them in separate variables - very convenient!
+// https://medium.freecodecamp.org/the-basics-of-destructuring-props-in-react-a196696f5477
 const SplitInfo = ({taxAmount, tipAmount, totalPrice, pricePerHead}) => {
   const buildLi = (text, value) => {
     return (

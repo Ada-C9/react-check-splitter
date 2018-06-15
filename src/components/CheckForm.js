@@ -12,15 +12,24 @@ class CheckForm extends React.Component {
     updateCheckCallback: PropTypes.func.isRequired,
   }
 
-  onInputChange = (event) => {
-    const key = event.target.name;
-    const value = event.target.value;
-    this.props.updateCheckCallback(key, value);
-  }
+  // Commented out because we're now defining a separate
+  // function for each input element
+  // onInputChange = (event) => {
+  //   const key = event.target.name;
+  //   const value = event.target.value;
+  //   this.props.updateCheckCallback(key, value);
+  // }
 
   // Inputs all look pretty much the same, so we'll
   // use a helepr method to construct them.
   buildInput(name, text) {
+    const inputClosure = (event) => {
+      // Referencing 'name', which comes in from outside,
+      // makes this a closure. We end up building a
+      // sparate function for each input, each of which
+      // has the same code but a different name to work with.
+      this.props.updateCheckCallback(name, event.target.value)
+    }
     return (
       <div>
         <label htmlFor={name} className="text-box">
@@ -29,7 +38,7 @@ class CheckForm extends React.Component {
         <input
           name={name}
           value={this.props[name]}
-          onChange={this.onInputChange}
+          onChange={inputClosure}
           />
       </div>
     );

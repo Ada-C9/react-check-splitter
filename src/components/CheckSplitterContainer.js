@@ -4,6 +4,7 @@ import './CheckSplitterContainer.css';
 
 import CheckForm from './CheckForm';
 import SplitInfo from './SplitInfo';
+import DansButtonList from './DansButtonList';
 
 const FORM_KEYS = ['subtotal', 'tip', 'tax', 'split'];
 
@@ -47,6 +48,9 @@ class CheckSplitterContainer extends React.Component {
   }
 
   render() {
+    // Down below we use the spread operator (...)
+    // to break this object out into separate props
+    const splitData = this.calculateSplit();
     return(
       <div className="check-splitter-container">
         <CheckForm
@@ -56,7 +60,8 @@ class CheckSplitterContainer extends React.Component {
           split={this.state.split}
           updateCheckCallback={this.updateCheck}
           />
-        <SplitInfo {...this.calculateSplit()}/>
+        <SplitInfo {...splitData}/>
+        <DansButtonList />
       </div>
     );
   }
